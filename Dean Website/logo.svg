@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 240" role="img" aria-label="Roluxa">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f1d77a"/>
+      <stop offset="35%" stop-color="#e9c96a"/>
+      <stop offset="65%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#a87f23"/>
+    </linearGradient>
+    <filter id="soft" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- House icon -->
+  <g fill="url(#gold)" filter="url(#soft)">
+    <path d="M300 28 L362 80 L362 86 L358 86 L358 90 L342 90 L342 80 L300 46 L258 80 L258 90 L242 90 L242 86 L238 86 L238 80 Z"/>
+    <!-- chimney -->
+    <rect x="332" y="48" width="10" height="22"/>
+    <!-- window -->
+    <rect x="294" y="68" width="12" height="12"/>
+  </g>
+
+  <!-- Top flourish -->
+  <g stroke="url(#gold)" stroke-width="2" fill="none" stroke-linecap="round">
+    <path d="M120 110 Q 200 80 280 110"/>
+    <path d="M320 110 Q 400 80 480 110"/>
+    <path d="M120 110 q -10 -8 -18 -2 q -6 6 0 14 q 8 8 18 2"/>
+    <path d="M480 110 q 10 -8 18 -2 q 6 6 0 14 q -8 8 -18 2"/>
+  </g>
+
+  <!-- ROLUXA -->
+  <text x="300" y="170"
+        font-family="'Cormorant Garamond', 'Times New Roman', serif"
+        font-size="72" font-weight="700"
+        text-anchor="middle"
+        fill="url(#gold)"
+        letter-spacing="6">ROLUXA</text>
+
+  <!-- Bottom flourish -->
+  <g stroke="url(#gold)" stroke-width="2" fill="none" stroke-linecap="round">
+    <path d="M120 196 Q 200 226 280 196"/>
+    <path d="M320 196 Q 400 226 480 196"/>
+    <path d="M270 200 q 12 12 30 0 q 18 -12 30 0"/>
+  </g>
+</svg>

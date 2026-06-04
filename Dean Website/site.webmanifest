@@ -1,0 +1,14 @@
+{
+  "name": "Roluxa — Luxury Home Management",
+  "short_name": "Roluxa",
+  "description": "Discreet luxury home management, holiday home maintenance, empty-house checks, premium cleaning and garden services across the UK.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0d12",
+  "theme_color": "#0b0d12",
+  "icons": [
+    { "src": "logo.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "logo.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

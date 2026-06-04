@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e9c96a"/>
+      <stop offset="50%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#b78f2f"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="#0b0d12"/>
+  <!-- House icon -->
+  <path d="M32 14 L48 28 L48 30 L46 30 L46 46 L36 46 L36 36 L28 36 L28 46 L18 46 L18 30 L16 30 L16 28 Z"
+        fill="url(#g)"/>
+  <!-- Chimney -->
+  <rect x="40" y="16" width="3.5" height="6" fill="url(#g)"/>
+</svg>
