@@ -1,0 +1,5 @@
+# Force apex -> www (or remove this if you prefer apex)
+https://roluxa.co.uk/*    https://www.roluxa.co.uk/:splat   301!
+
+# 404 fallback
+/*  /index.html  200
