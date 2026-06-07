@@ -3,6 +3,14 @@
    Modern dark / gold theme
    ========================================================================== */
 
+/* Country flag emoji font (Android Chrome doesn't render 🇬🇧 🇸🇦 🇫🇷 🇪🇸 natively) */
+@font-face {
+  font-family: 'Twemoji Country Flags';
+  unicode-range: U+1F1E6-1F1FF, U+1F3F4, U+E0062-E0063, U+E0065-E0067, U+E006C, U+E006E, U+E0073-E0074, U+E0077, U+E007F;
+  src: url('https://cdn.jsdelivr.net/npm/country-flag-emoji-polyfill@0.1/dist/TwemojiCountryFlags.woff2') format('woff2');
+  font-display: swap;
+}
+
 :root {
   --bg: #0b0d12;
   --bg-2: #11141b;
@@ -24,7 +32,14 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+*, *::before, *::after {
+  -webkit-tap-highlight-color: transparent;
+}
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  -webkit-overflow-scrolling: touch;
+}
 body {
   margin: 0;
   font-family: var(--sans);
@@ -33,7 +48,9 @@ body {
   color: var(--text);
   background: var(--bg);
   overflow-x: hidden;
+  text-rendering: optimizeSpeed;
 }
+a, button { touch-action: manipulation; }
 img { max-width: 100%; display: block; }
 a { color: var(--gold-2); text-decoration: none; transition: color var(--t); }
 a:hover { color: var(--gold); }
@@ -459,24 +476,6 @@ p { margin: 0 0 1em; color: var(--muted); }
 .lang-menu .flag { display: inline-block; margin-inline-end: 8px; font-size: .9rem; }
 
 /* ==========================================================================
-   RTL support (Arabic)
-   ========================================================================== */
-html[dir="rtl"] body { font-family: 'Segoe UI', 'Tahoma', 'Inter', system-ui, sans-serif; }
-html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3 {
-  font-family: 'Amiri', 'Cormorant Garamond', 'Times New Roman', serif;
-}
-html[dir="rtl"] .eyebrow { letter-spacing: .08em; }
-html[dir="rtl"] .service-list li,
-html[dir="rtl"] .check-list li { padding-left: 0; padding-right: 28px; }
-html[dir="rtl"] .service-list li::before,
-html[dir="rtl"] .check-list li::before { left: auto; right: 0; }
-html[dir="rtl"] .float-wa { right: auto; left: 22px; }
-html[dir="rtl"] .desktop-only { margin-left: 0; margin-right: auto; }
-html[dir="rtl"] .skip-link { right: 16px; left: auto; }
-html[dir="rtl"] .topbar-item .ic,
-html[dir="rtl"] .contact-list .ic { transform: scaleX(-1); }
-
-/* ==========================================================================
    Welcome Language Modal (first-visit)
    ========================================================================== */
 .lang-modal[hidden] { display: none; }
@@ -593,6 +592,78 @@ html[dir="rtl"] .contact-list .ic { transform: scaleX(-1); }
 html[dir="rtl"] .lang-modal-btn strong { text-align: right; }
 html[dir="rtl"] .lang-modal-btn .arrow { transform: scaleX(-1); }
 html[dir="rtl"] .lang-modal-btn:hover .arrow { transform: scaleX(-1) translateX(4px); }
+
+/* ==========================================================================
+   Mobile / Android performance fixes
+   ========================================================================== */
+
+/* On touch devices, kill all hover styles (they misfire as sticky states) */
+@media (hover: none) {
+  a:hover, button:hover,
+  .btn-gold:hover, .btn-ghost:hover, .btn-gold-sm:hover,
+  .service-card:hover, .service-card:hover::before,
+  .area-card:hover, .socials a:hover,
+  .nav-list a:hover, .lang-current:hover,
+  .lang-menu li a:hover, .lang-modal-btn:hover,
+  .lang-modal-close:hover, .float-wa:hover {
+    transform: none !important;
+    background: initial;
+    border-color: initial;
+    box-shadow: none;
+    opacity: 1;
+  }
+  .service-card:hover { background: var(--bg-2); border-color: var(--line); }
+  .area-card:hover { border-color: var(--line); }
+  .btn-gold:hover { background: linear-gradient(135deg, var(--gold-2), var(--gold), var(--gold-3)); color: #0b0d12; box-shadow: 0 8px 24px rgba(212,175,55,.25); }
+}
+
+/* On mobile, kill backdrop-filter (huge performance cost on Android Chrome) */
+@media (max-width: 900px) {
+  .site-header {
+    background: rgba(11, 13, 18, .96);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .site-header.scrolled { background: rgba(11, 13, 18, .98); }
+
+  .lang-modal-backdrop {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(7, 9, 13, .92);
+  }
+
+  /* Simplify hero background — fewer gradients on mobile */
+  .hero-bg::after { display: none; }
+
+  /* Pause the floating WhatsApp button animation on mobile */
+  .float-wa { animation: none; }
+
+  /* Simplify frame glow */
+  .frame-glow { animation-duration: 8s; }
+
+  /* Disable scroll-behavior smooth on mobile (causes jank) */
+  html { scroll-behavior: auto; }
+}
+
+/* On very narrow phones, smaller modal */
+@media (max-width: 380px) {
+  .lang-modal { padding: 12px; }
+  .lang-modal-card { padding: 28px 18px 20px; }
+  .lang-modal-card h2 { font-size: 1.25rem; }
+  .lang-modal-card > p { font-size: .88rem; margin-bottom: 18px; }
+  .lang-modal-btn { padding: 12px 14px; font-size: .95rem; }
+  .lang-modal-btn .flag-big { font-size: 1.4rem; }
+  .lang-modal-logo { height: 48px; margin-bottom: 14px; }
+}
+
+/* Help GPU optimize transforms */
+.hero-frame, .float-wa, .lang-modal-card { will-change: transform; }
+
+/* Force regional-indicator flags to use color-emoji font (Android fix — without this, Android shows letters like "GB" instead of 🇬🇧) */
+.flag, .flag-big, .lang-current {
+  font-family: 'Twemoji Country Flags', 'Apple Color Emoji', 'Segoe UI Emoji',
+               'Noto Color Emoji', 'Segoe UI Symbol', var(--sans);
+}
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
