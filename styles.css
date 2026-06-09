@@ -665,6 +665,100 @@ html[dir="rtl"] .lang-modal-btn:hover .arrow { transform: scaleX(-1) translateX(
                'Noto Color Emoji', 'Segoe UI Symbol', var(--sans);
 }
 
+/* ==========================================================================
+   Extra RTL fixes (Arabic on mobile/Android — fix blank-corner & overflow)
+   ========================================================================== */
+html[dir="rtl"] {
+  text-align: right;
+}
+html[dir="rtl"] body {
+  text-align: right;
+  overflow-x: hidden;
+}
+/* Ensure containers fill width properly in RTL mobile */
+html[dir="rtl"] .container,
+html[dir="rtl"] .hero-inner,
+html[dir="rtl"] .about-grid,
+html[dir="rtl"] .contact-grid,
+html[dir="rtl"] .services-grid,
+html[dir="rtl"] .areas-grid,
+html[dir="rtl"] .testimonial-grid,
+html[dir="rtl"] .trust-grid,
+html[dir="rtl"] .process-list,
+html[dir="rtl"] .footer-inner {
+  width: 100%;
+  max-width: 100%;
+  margin-inline: auto;
+}
+html[dir="rtl"] .container {
+  max-width: var(--maxw);
+}
+
+/* On Arabic mobile, force every multi-column layout to single-column
+   (fixes "blank side" issue when grid columns don't collapse correctly) */
+@media (max-width: 900px) {
+  html[dir="rtl"] .hero-inner,
+  html[dir="rtl"] .about-grid,
+  html[dir="rtl"] .contact-grid,
+  html[dir="rtl"] .about-bullets,
+  html[dir="rtl"] .testimonial-grid,
+  html[dir="rtl"] .footer-inner {
+    display: block !important;
+  }
+  html[dir="rtl"] .hero-content,
+  html[dir="rtl"] .hero-frame,
+  html[dir="rtl"] .about-text,
+  html[dir="rtl"] .about-card,
+  html[dir="rtl"] .contact-info,
+  html[dir="rtl"] .contact-form,
+  html[dir="rtl"] .footer-brand,
+  html[dir="rtl"] .footer-col {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 32px;
+  }
+  html[dir="rtl"] .hero-frame {
+    margin-inline: auto;
+    max-width: 460px;
+  }
+  /* Force grids to single column on Arabic mobile */
+  html[dir="rtl"] .services-grid,
+  html[dir="rtl"] .areas-grid,
+  html[dir="rtl"] .process-list {
+    grid-template-columns: 1fr !important;
+  }
+  html[dir="rtl"] .trust-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  /* Form field-row to single column */
+  html[dir="rtl"] .field-row {
+    grid-template-columns: 1fr !important;
+  }
+  /* About card not sticky on mobile */
+  html[dir="rtl"] .about-card {
+    position: static;
+    margin-top: 24px;
+  }
+  /* Make the hero text align right naturally */
+  html[dir="rtl"] .hero-content,
+  html[dir="rtl"] .section-head,
+  html[dir="rtl"] .about-text,
+  html[dir="rtl"] .contact-info {
+    text-align: right;
+  }
+  html[dir="rtl"] .hero-cta,
+  html[dir="rtl"] .hero-points {
+    justify-content: flex-end;
+  }
+  /* Trust strip — keep centered (numbers look better centered) */
+  html[dir="rtl"] .trust-grid { text-align: center; }
+}
+
+/* Even on desktop, ensure RTL grid items get full width when their column shrinks */
+html[dir="rtl"] .hero-inner > * { min-width: 0; }
+html[dir="rtl"] .about-grid > * { min-width: 0; }
+html[dir="rtl"] .contact-grid > * { min-width: 0; }
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
